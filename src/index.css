@@ -1,0 +1,90 @@
+:root {
+  --color-bg: #131316;
+  --color-base: #f2f2f3;
+
+  --background: #1c1c21;
+  --background-alt: #131316;
+  --background-element: #2f2f37;
+  --background-modal: #1c1c21;
+  --background-header: #1c1c21;
+  --offset-base-variable: 2px;
+  --offset-base-size: 4px;
+  --top-constructor-item-border-radius: 88px 88px 40px 40px;
+  --bottom-constructor-item-border-radius: 40px 40px 88px 88px;
+
+  --common-border-radius: 64px;
+  --common-border-radius-s: 40px;
+  --text-primary-color: white;
+  --text-inactive-color: #8585ad;
+  --colors-interface-accent: #4c4cff;
+  --colors-interface-error: #e52b1a;
+  --colors-interface-success: #00cccc;
+  --colors-button-inactive: #3a3a55;
+  scrollbar-color: #2f2f37 #8585ad;
+  scrollbar-width: thin;
+
+  --common-transition: all 0.3s ease-in;
+}
+
+/* Указываем box sizing */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Убираем внутренние отступы */
+ul[class],
+ol[class] {
+  padding: 0;
+}
+
+/* Убираем внешние отступы */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul[class],
+ol[class],
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+/* Выставляем основные настройки по-умолчанию для body */
+body {
+  background-color: var(--color-bg);
+  min-height: 100vh;
+  scroll-behavior: smooth;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+  color: var(--color-base);
+}
+
+/* Удаляем стандартную стилизацию для всех ul и il, у которых есть атрибут class*/
+ul[class],
+ol[class] {
+  list-style: none;
+}
+
+/* Элементы a, у которых нет класса, сбрасываем до дефолтных стилей */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+a {
+  color: var(--color-base);
+  text-decoration: none;
+}
+
+/* Упрощаем работу с изображениями */
+img {
+  max-width: 100%;
+  display: block;
+}

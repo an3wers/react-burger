@@ -1,0 +1,9 @@
+.tab-group {
+  display: flex;
+  align-items: stretch;
+}
+
+.container {
+  overflow-y: auto;
+  height: calc(100vh - 325px);
+}

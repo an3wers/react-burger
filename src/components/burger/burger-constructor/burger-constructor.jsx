@@ -1,4 +1,4 @@
-const BurgerConstructor = () => {
+const BurgerConstructor = ({ constructorItems }) => {
   return <></>;
 };
 

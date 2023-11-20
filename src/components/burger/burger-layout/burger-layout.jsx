@@ -1,5 +1,9 @@
+import styles from "./burger-layout.module.css";
+
 const BurgerLayout = ({ children }) => {
-  return <main className="burger-layout">{children}</main>;
+  // TODO: Описать propTypes
+
+  return <main className={styles.layout}>{children}</main>;
 };
 
 export default BurgerLayout;

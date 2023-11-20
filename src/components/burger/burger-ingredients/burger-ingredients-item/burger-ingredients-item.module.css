@@ -1,0 +1,19 @@
+.item {
+  position: relative;
+  display: flex;
+  width: 46%;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(var(--offset-base-size) * 1);
+}
+
+.item__price {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  gap: calc(var(--offset-base-size) * 2);
+}
+
+.item__name {
+  text-align: center;
+}

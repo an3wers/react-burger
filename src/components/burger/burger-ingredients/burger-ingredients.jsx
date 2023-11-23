@@ -25,18 +25,30 @@ const BurgerIngredients = ({ ingredientsItems }) => {
           Соусы
         </Tab>
         <Tab
-          value="fillings"
-          active={currentTab === "fillings"}
+          value="main"
+          active={currentTab === "main"}
           onClick={setCurrentTab}
         >
           Начинки
         </Tab>
       </div>
-      <div className={`${styles.container}`}>
-        <BurgerIngredientsList title="Булки" items={ingredientsItems.bun} />
-        <BurgerIngredientsList title="Соусы" items={ingredientsItems.sauce} />
-        <BurgerIngredientsList title="Начинки" items={ingredientsItems.main} />
-      </div>
+      <section className={`${styles.container}`}>
+        <BurgerIngredientsList
+          key={"buns"}
+          title="Булки"
+          items={ingredientsItems.bun}
+        />
+        <BurgerIngredientsList
+          key={"sauces"}
+          title="Соусы"
+          items={ingredientsItems.sauce}
+        />
+        <BurgerIngredientsList
+          key={"main"}
+          title="Начинки"
+          items={ingredientsItems.main}
+        />
+      </section>
     </section>
   );
 };

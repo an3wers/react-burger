@@ -4,12 +4,10 @@ import BurgerConstructor from "../burger/burger-constructor/burger-constructor";
 import BurgerIngredients from "../burger/burger-ingredients/burger-ingredients";
 import BurgerLayout from "../burger/burger-layout/burger-layout";
 import data from "../../utlils/data.json";
-import { mappingForIngredients } from "../../utlils/mappers/mappers";
-
-// console.log('@Data', data)
-// console.log('@Mapped', mappingForIngredients(data))
+import { mappingForConstructor, mappingForIngredients } from "../../utlils/mappers/mappers";
 
 const ingredientsItems = mappingForIngredients(data);
+const constructorItems = mappingForConstructor(data)
 
 function App() {
   return (
@@ -18,7 +16,7 @@ function App() {
       <div className={`${styles.container} pt-10 pb-10`}>
         <BurgerLayout>
           <BurgerIngredients ingredientsItems={ingredientsItems} />
-          <BurgerConstructor constructorItems={data} />
+          <BurgerConstructor constructorItems={constructorItems} />
         </BurgerLayout>
       </div>
     </>

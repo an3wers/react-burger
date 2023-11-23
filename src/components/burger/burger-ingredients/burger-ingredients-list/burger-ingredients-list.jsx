@@ -3,12 +3,12 @@ import styles from "./burger-ingredients-list.module.css";
 
 const BurgerIngredientsList = ({ title, items }) => {
   return (
-    <section className="mb-8">
+    <div className="mb-8">
       <h3 className="text text_type_main-medium mb-6">{title}</h3>
       <div className={`${styles["items-container"]} pr-4 pl-4`}>
         {items.map((item, idx) => (
           <IngredientsItem
-            key={item.id}
+            key={item._id}
             name={item.name}
             price={item.price}
             image={item.image}
@@ -17,7 +17,7 @@ const BurgerIngredientsList = ({ title, items }) => {
           />
         ))}
       </div>
-    </section>
+    </div>
   );
 };
 

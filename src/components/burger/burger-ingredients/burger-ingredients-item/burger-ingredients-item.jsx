@@ -38,7 +38,7 @@ IngredientsItem.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
-  price: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
   image: PropTypes.string.isRequired,
   hasCounter: PropTypes.bool,
   onShowDetail: PropTypes.func.isRequired,

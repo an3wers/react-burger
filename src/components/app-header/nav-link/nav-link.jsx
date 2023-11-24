@@ -15,7 +15,7 @@ const NavLink = ({ children, path = "!#", extraClass = "", renderIcon }) => {
 };
 
 NavLink.propTypes = {
-  children: PropTypes.element.isRequired,
+  children: PropTypes.string,
   path: PropTypes.string,
   extraClass: PropTypes.string,
   renderIcon: PropTypes.func,

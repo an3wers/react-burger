@@ -2,24 +2,10 @@ import {
   Logo,
   BurgerIcon,
   ListIcon,
-  ProfileIcon
+  ProfileIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./app-header.module.css";
-
-const NavLink = ({ children, path = "!#", extraClass = "", renderIcon }) => {
-  // TODO: Описать propTypes
-
-  const icon = renderIcon();
-  return (
-    <a
-      href={path}
-      className={`${styles.nav__link} ${extraClass} pl-5 pr-5 pb-4 pt-4 text text_type_main-default`}
-    >
-      {icon}
-      <span className="ml-2">{children}</span>
-    </a>
-  );
-};
+import NavLink from "./nav-link/nav-link";
 
 const AppHeader = () => {
   return (

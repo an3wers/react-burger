@@ -1,9 +1,12 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useCallback, useState } from "react";
 import styles from "./burger-ingredients.module.css";
 import BurgerIngredientsList from "./burger-ingredients-list/burger-ingredients-list";
 import AppModal from "../../modal/app-modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
+import PropTypes from "prop-types";
+import { itemsPropTypes } from "../../../utlils/types/ingredients.type";
 
 const BurgerIngredients = ({ ingredientsItems }) => {
   const [currentTab, setCurrentTab] = useState("buns");
@@ -71,12 +74,20 @@ const BurgerIngredients = ({ ingredientsItems }) => {
         />
       </section>
       {isModalDetail && currentItem && (
-        <AppModal onClose={handleCloseDetail} title={'Детали ингредиента'}>
+        <AppModal onClose={handleCloseDetail} title={"Детали ингредиента"}>
           <IngredientDetails ingredient={currentItem} />
         </AppModal>
       )}
     </section>
   );
+};
+
+BurgerIngredients.propTypes = {
+  ingredientsItems: PropTypes.shape({
+    bun: PropTypes.arrayOf(itemsPropTypes),
+    sauce: PropTypes.arrayOf(itemsPropTypes),
+    main: PropTypes.arrayOf(itemsPropTypes),
+  }),
 };
 
 export default BurgerIngredients;

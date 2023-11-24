@@ -1,6 +1,8 @@
 import { memo } from "react";
 import IngredientsItem from "../burger-ingredients-item/burger-ingredients-item";
 import styles from "./burger-ingredients-list.module.css";
+import PropTypes from "prop-types";
+import { itemsPropTypes } from "../../../../utlils/types/ingredients.type";
 
 const BurgerIngredientsList = memo(({ title, items, onShowDetail }) => {
   return (
@@ -24,5 +26,11 @@ const BurgerIngredientsList = memo(({ title, items, onShowDetail }) => {
     </div>
   );
 });
+
+BurgerIngredientsList.propTypes = {
+  title: PropTypes.string.isRequired,
+  items: PropTypes.arrayOf(itemsPropTypes),
+  onShowDetail: PropTypes.func.isRequired,
+};
 
 export default BurgerIngredientsList;

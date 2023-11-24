@@ -3,10 +3,8 @@ import { createPortal } from "react-dom";
 import styles from "./app-modal.module.css";
 import ModalOverlay from "./modal-overlay/modal-overlay";
 import { useEffect } from "react";
-import {
-  Button,
-  CloseIcon,
-} from "@ya.praktikum/react-developer-burger-ui-components";
+import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import PropTypes from "prop-types";
 
 const modalRoot = document.getElementById("modals");
 
@@ -29,7 +27,11 @@ const AppModal = ({ title, children, onClose }) => {
         <div className={styles.content}>
           <div className={styles.header}>
             {title && <h2 className="text text_type_main-large">{title}</h2>}
-            <span onClick={onClose} role="button" className={styles["close-btn"]}>
+            <span
+              onClick={onClose}
+              role="button"
+              className={styles["close-btn"]}
+            >
               <CloseIcon type="primary" />
             </span>
           </div>
@@ -40,6 +42,12 @@ const AppModal = ({ title, children, onClose }) => {
     </div>,
     modalRoot
   );
+};
+
+AppModal.propTypes = {
+  title: PropTypes.string,
+  children: PropTypes.element,
+  onClose: PropTypes.func.isRequired,
 };
 
 export default AppModal;

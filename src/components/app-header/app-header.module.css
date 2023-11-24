@@ -20,16 +20,6 @@
   justify-content: end;
 }
 
-.nav__link {
-  display: inline-flex;
-  align-items: center;
-  color: var(--text-inactive-color);
-}
-
-.nav__link_active {
-  color: var(--color-base);
-}
-
 .nav__logo {
   display: flex;
   justify-content: center;

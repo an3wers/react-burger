@@ -3,6 +3,7 @@ import {
   CurrencyIcon,
   Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import PropTypes from "prop-types";
 
 const IngredientsItem = ({
   id,
@@ -32,4 +33,15 @@ const IngredientsItem = ({
     </div>
   );
 };
+
+IngredientsItem.propTypes = {
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  price: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired,
+  hasCounter: PropTypes.bool,
+  onShowDetail: PropTypes.func.isRequired,
+};
+
 export default IngredientsItem;

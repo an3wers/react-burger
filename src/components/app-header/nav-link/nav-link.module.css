@@ -1,0 +1,9 @@
+.nav__link {
+  display: inline-flex;
+  align-items: center;
+  color: var(--text-inactive-color);
+}
+
+.nav__link_active {
+  color: var(--color-base);
+}

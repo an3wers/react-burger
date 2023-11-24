@@ -5,6 +5,8 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burger-constructor.module.css";
 import BurgerConstructorTotal from "./burger-constructor-total/burger-constructor-total";
+import PropTypes from "prop-types";
+import { itemsPropTypes } from "../../../utlils/types/ingredients.type";
 
 const BurgerConstructor = ({ constructorItems }) => {
   const { staticItems, dragableItems } = constructorItems;
@@ -50,6 +52,13 @@ const BurgerConstructor = ({ constructorItems }) => {
       <BurgerConstructorTotal />
     </section>
   );
+};
+
+BurgerConstructor.propTypes = {
+  constructorItems: PropTypes.shape({
+    staticItems: PropTypes.arrayOf(itemsPropTypes),
+    dragableItems: PropTypes.arrayOf(itemsPropTypes),
+  }),
 };
 
 export default BurgerConstructor;

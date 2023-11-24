@@ -1,3 +1,12 @@
+# Project React Burger
+
+A burger shop at the edge of the universe is losing money.
+
+The old owner and his nephews are trying to make money for a punk band.
+
+A figure in black appears in the burger shop, which portends trouble.
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

@@ -9,7 +9,8 @@
   flex-direction: column;
   gap: calc(var(--offset-base-size) * 4);
   overflow-y: auto;
-  height: calc(100vh - 436px);
+  overflow-x: hidden;
+  height: calc(100vh - 534px);
 }
 
 .item {

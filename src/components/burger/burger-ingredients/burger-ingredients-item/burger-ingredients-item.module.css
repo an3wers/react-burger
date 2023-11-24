@@ -5,6 +5,7 @@
   flex-direction: column;
   align-items: center;
   gap: calc(var(--offset-base-size) * 1);
+  cursor: pointer;
 }
 
 .item__price {

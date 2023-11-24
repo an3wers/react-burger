@@ -4,9 +4,20 @@ import {
   Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
-const IngredientsItem = ({ name, price, image, hasCounter = false }) => {
+const IngredientsItem = ({
+  id,
+  name,
+  type,
+  price,
+  image,
+  hasCounter = false,
+  onShowDetail,
+}) => {
   return (
-    <div className={`${styles.item} mb-8`}>
+    <div
+      onClick={() => onShowDetail({ id, type })}
+      className={`${styles.item} mb-8`}
+    >
       <div className={`${styles.item__img} pr-4 pl-4`}>
         <img src={image} alt={name} />
       </div>
@@ -21,5 +32,4 @@ const IngredientsItem = ({ name, price, image, hasCounter = false }) => {
     </div>
   );
 };
-
 export default IngredientsItem;

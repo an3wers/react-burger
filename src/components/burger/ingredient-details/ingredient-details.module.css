@@ -1,0 +1,33 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.img {
+  max-width: 480px;
+}
+
+.img > img {
+  width: 100%;
+  object-fit: contain;
+}
+
+.name {
+  text-align: center;
+}
+
+.values {
+  display: flex;
+  justify-content: space-between;
+  gap: calc(var(--offset-base-size) * 5);
+}
+
+.values__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(var(--offset-base-size) * 2);
+  min-width: 112px;
+  color: var(--text-inactive-color);
+}

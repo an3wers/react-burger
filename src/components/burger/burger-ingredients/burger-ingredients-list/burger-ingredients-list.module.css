@@ -1,0 +1,5 @@
+.items-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(var(--offset-base-size) * 6);
+}

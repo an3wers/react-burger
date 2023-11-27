@@ -1,0 +1,24 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--offset-base-size) * 4);
+}
+
+.items-dragable {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--offset-base-size) * 4);
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: calc(100vh - 534px);
+}
+
+.item {
+  position: relative;
+}
+
+.item__icon {
+  position: absolute;
+  left: 0;
+  top: calc(50% - 12px)
+}

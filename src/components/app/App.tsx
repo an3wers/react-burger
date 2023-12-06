@@ -4,48 +4,42 @@ import BurgerConstructor from "../burger/burger-constructor/burger-constructor";
 import BurgerIngredients from "../burger/burger-ingredients/burger-ingredients";
 import BurgerLayout from "../burger/burger-layout/burger-layout";
 import {
-  mappingForConstructor,
   mappingForIngredients,
 } from "../../utlils/mappers/mappers";
-import { useEffect, useState } from "react";
-import { getIngredients } from "../../api/ingredients.api";
+import { useEffect, useMemo } from "react";
 import AppError from "../app-error/app-error";
 import AppLoading from "../app-loading/app-loading";
+import { useDispatch, useSelector } from "react-redux";
+import { selectIngredientsState } from "../../store/ingredients/selectors";
+import { fetchIngredients } from "../../store/ingredients/thunks";
 
 function App() {
-  const [ingredients, setIngredients] = useState(null);
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [error, setError] = useState("");
+  const { items, isLoading, error } = useSelector(selectIngredientsState);
+  const dispatch = useDispatch();
+
+  const mappedItems = useMemo(() => mappingForIngredients(items), [items]);
 
   useEffect(() => {
-    getIngredients()
-      .then(({ data }) => {
-        setError("");
-        setIngredients(data);
-      })
-      .catch((err) => {
-        setError(err.message);
-      })
-      .finally(() => {
-        setIsLoaded(true);
-      });
+    // @ts-ignore
+    dispatch(fetchIngredients());
   }, []);
 
   return (
     <>
       <AppHeader />
       <div className={`${styles.container} pt-10 pb-10`}>
-        {isLoaded && error && <AppError message={error} />}
-        {!isLoaded && <AppLoading />}
-        {isLoaded && !error && (
+        {!isLoading && error && <AppError message={error} />}
+        {isLoading && <AppLoading />}
+        {!isLoading && !error && items.length > 0 && (
           <BurgerLayout>
             <>
-              <BurgerIngredients
-                ingredientsItems={mappingForIngredients(ingredients)}
-              />
-              <BurgerConstructor
+              <BurgerIngredients ingredientsItems={mappedItems} />
+              {/* <BurgerConstructor
                 constructorItems={mappingForConstructor(ingredients)}
-              />
+              /> */}
+              {/* <BurgerConstructor
+                constructorItems={{}}
+              /> */}
             </>
           </BurgerLayout>
         )}

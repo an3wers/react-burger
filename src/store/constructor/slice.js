@@ -5,8 +5,10 @@ const initialState = {
   items: [],
 };
 
-export const constructorSlice = createSlice({
-  name: "constructor",
+export const ingredientsConstructorSlice = createSlice({
+  name: "ingredientsConstructor",
   initialState,
   reducers: {},
 });
+
+export default ingredientsConstructorSlice.reducer;

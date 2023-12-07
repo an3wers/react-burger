@@ -5,7 +5,7 @@ const initialState = {
  }
 
 export const ingredientDetailsSlice = createSlice({ 
-  name: "singleIngredient",
+  name: "ingredientDetails",
   initialState,
   reducers: {
     setIngredient: (state, action) => {

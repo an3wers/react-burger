@@ -1,9 +1,11 @@
+import { selectIngredientDetails } from "../../../store/ingredient-details/selectors";
 import { itemsPropTypes } from "../../../utlils/types/ingredients.type";
 import styles from "./ingredient-details.module.css";
+import { useSelector } from "react-redux";
 
-const IngredientDetails = ({ ingredient }) => {
-  const { name, image_large, calories, proteins, fat, carbohydrates } =
-    ingredient;
+const IngredientDetails = () => {
+  
+  const { name, image_large, calories, proteins, fat, carbohydrates } = useSelector(selectIngredientDetails)
 
   return (
     <section className={`${styles.container} mb-5`}>

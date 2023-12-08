@@ -8,6 +8,10 @@
   border-radius: var(--common-border-radius);
 }
 
+.container_hover {
+  background-color: rgb(28, 34, 32);
+}
+
 .container > p {
   text-align: center;
 }

@@ -66,8 +66,8 @@ const BurgerConstructor = () => {
 
             <div className={styles["items-dragable"]}>
               {selectItems.length > 0 &&
-                selectItems.map((item) => (
-                  <DraggbleItem key={item.uuid} item={item} />
+                selectItems.map((item, index) => (
+                  <DraggbleItem key={item.uuid} item={item} index={index} />
                 ))}
             </div>
 

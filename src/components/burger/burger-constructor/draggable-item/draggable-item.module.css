@@ -1,5 +1,6 @@
 .item {
   position: relative;
+  cursor: grab;
 }
 
 .item__icon {

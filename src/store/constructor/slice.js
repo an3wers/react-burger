@@ -13,19 +13,25 @@ export const ingredientsConstructorSlice = createSlice({
       state.bun = action.payload;
     },
     setItems: (state, action) => {
-      const length = state.items.length;
-      state.items.push({ ...action.payload, order: length - 1 });
+      state.items.push(action.payload);
     },
     removeBun: (state) => {
       state.bun = null;
     },
     removeItem: (state, action) => {
-      state.items = state.items.filter(
-        (item) => item.uuid !== action.payload
-      );
+      state.items = state.items.filter((item) => item.uuid !== action.payload);
+    },
+    updateSortItems: (state, action) => {
+      const { dragId, hoverId } = action.payload;
+
+      const sortedItems = [...state.items];
+      sortedItems.splice(dragId, 1);
+      sortedItems.splice(hoverId, 0, state.items[dragId]);
+      state.items = sortedItems;
     },
   },
 });
 
-export const { setBun, setItems, removeBun, removeItem } = ingredientsConstructorSlice.actions;
+export const { setBun, setItems, removeBun, removeItem, updateSortItems } =
+  ingredientsConstructorSlice.actions;
 export default ingredientsConstructorSlice.reducer;

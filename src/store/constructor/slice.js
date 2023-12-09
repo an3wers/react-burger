@@ -29,9 +29,13 @@ export const ingredientsConstructorSlice = createSlice({
       sortedItems.splice(hoverId, 0, state.items[dragId]);
       state.items = sortedItems;
     },
+    resetConstructor: (state) => {
+      state.bun = null;
+      state.items = [];
+    }
   },
 });
 
-export const { setBun, setItems, removeBun, removeItem, updateSortItems } =
+export const { setBun, setItems, removeBun, removeItem, updateSortItems, resetConstructor } =
   ingredientsConstructorSlice.actions;
 export default ingredientsConstructorSlice.reducer;

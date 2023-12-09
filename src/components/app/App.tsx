@@ -9,7 +9,7 @@ import AppError from "../app-error/app-error";
 import AppLoading from "../app-loading/app-loading";
 import { useDispatch, useSelector } from "react-redux";
 import { selectIngredientsState } from "../../store/ingredients/selectors";
-import { fetchIngredients } from "../../store/ingredients/thunks";
+import { fetchIngredients } from "../../store/ingredients/api";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 

@@ -12,6 +12,7 @@ import { v4 as uuidv4 } from "uuid";
 import { setBun, setItems } from "../../../store/constructor/slice";
 import { updateItemQty } from "../../../store/ingredients/slice";
 import DraggbleItem from "./draggable-item/draggable-item";
+import { useMemo } from "react";
 
 const BurgerConstructor = () => {
   const selectBun = useSelector(selectIngredientsConstructorBun);
@@ -44,18 +45,46 @@ const BurgerConstructor = () => {
     dispatch(updateItemQty({ id: item.id, type: item.type, act: "add" }));
   };
 
+  const totalSum = useMemo(() => {
+    let sum = 0;
+
+    if (selectItems.length) {
+      selectItems.forEach((item) => {
+        sum += item.price;
+      });
+    }
+
+    if (selectBun) {
+      sum += selectBun.price * 2;
+    }
+
+    return sum;
+  }, [selectBun, selectItems]);
+
+  const ingredientsIds = useMemo(() => {
+    if (selectBun) {
+      const itemsIds = selectItems.map((item) => item.id);
+      return [selectBun.id, ...itemsIds, selectBun.id];
+    }
+    return [];
+  }, [selectBun, selectItems]);
+
   return (
     <section ref={dropRef} className={`${styles.container} mt-15`}>
       {selectBun === null && selectItems.length === 0 ? (
         <BurgerConstructorEmpty isHover={isHover} />
       ) : (
         <>
-          <div className={`${styles['inner-container']} ${isHover && styles['inner-container_hover']} p-1`}>
+          <div
+            className={`${styles["inner-container"]} ${
+              isHover && styles["inner-container_hover"]
+            } p-1`}
+          >
             {selectBun !== null && (
               <div className={`${styles.item} pl-8 pr-6`}>
                 <ConstructorElement
                   key={selectBun.uuid}
-                  type='top'
+                  type="top"
                   isLocked={true}
                   text={selectBun.name}
                   price={selectBun.price}
@@ -75,7 +104,7 @@ const BurgerConstructor = () => {
               <div className={`${styles.item} pl-8 pr-6`}>
                 <ConstructorElement
                   key={selectBun.uuid}
-                  type='bottom'
+                  type="bottom"
                   isLocked={true}
                   text={selectBun.name}
                   price={selectBun.price}
@@ -85,19 +114,15 @@ const BurgerConstructor = () => {
             )}
           </div>
           {(selectBun !== null || selectItems.length > 0) && (
-            <BurgerConstructorTotal />
+            <BurgerConstructorTotal
+              total={totalSum}
+              ingredientsIds={ingredientsIds}
+            />
           )}
         </>
       )}
     </section>
   );
 };
-
-// BurgerConstructor.propTypes = {
-//   constructorItems: PropTypes.shape({
-//     staticItems: PropTypes.arrayOf(itemsPropTypes),
-//     dragableItems: PropTypes.arrayOf(itemsPropTypes),
-//   }),
-// };
 
 export default BurgerConstructor;

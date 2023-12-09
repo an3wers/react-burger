@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchIngredients } from "./thunks";
+import { fetchIngredients } from "./api";
 
 const initialState = {
   items: [],
@@ -36,6 +36,9 @@ export const ingridientsSlice = createSlice({
         });
       }
     },
+    resetItemsQty: (state) => {
+      state.items = state.items.map((item) => ({ ...item, qty: 0 }));
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -54,5 +57,5 @@ export const ingridientsSlice = createSlice({
   },
 });
 
-export const { updateItemQty } = ingridientsSlice.actions;
+export const { updateItemQty, resetItemsQty } = ingridientsSlice.actions;
 export default ingridientsSlice.reducer;

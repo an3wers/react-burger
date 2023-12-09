@@ -8,6 +8,7 @@ import { removeItem, updateSortItems } from "../../../../store/constructor/slice
 import { updateItemQty } from "../../../../store/ingredients/slice";
 import { useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
+import PropTypes from "prop-types";
 
 const DraggbleItem = ({ item, index }) => {
   const dispatch = useDispatch();
@@ -81,5 +82,16 @@ const DraggbleItem = ({ item, index }) => {
     </div>
   );
 };
+
+DraggbleItem.propTypes = {
+  item: PropTypes.shape({
+    uuid: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    image: PropTypes.string.isRequired,
+    typeof: PropTypes.string.isRequired,
+  }).isRequired,
+  index: PropTypes.number.isRequired,
+}
 
 export default DraggbleItem;

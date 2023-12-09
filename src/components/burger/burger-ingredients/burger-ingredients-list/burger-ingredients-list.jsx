@@ -11,7 +11,7 @@ import {
 import AppModal from "../../../modal/app-modal";
 import IngredientDetails from "../../ingredient-details/ingredient-details";
 
-const BurgerIngredientsList = memo(({ title, items }) => {
+const BurgerIngredientsList = memo(({ title, items, id }) => {
   const [isModalDetail, setIsModalDetail] = useState(false);
 
   const dispatch = useDispatch();
@@ -19,7 +19,7 @@ const BurgerIngredientsList = memo(({ title, items }) => {
   const handleShowDetail = useCallback((item) => {
     dispatch(setIngredient(getFullItem(item)));
     setIsModalDetail(true);
-  }, []);
+  }, [dispatch]);
 
   const handleCloseDetail = () => {
     dispatch(clearIngridient());
@@ -32,11 +32,11 @@ const BurgerIngredientsList = memo(({ title, items }) => {
 
   return (
     <>
-      <div className='mb-8'>
-        <h3 className='text text_type_main-medium mb-6'>{title}</h3>
+      <div id={id} className="ingredients-list mb-8">
+        <h3 className="text text_type_main-medium mb-6">{title}</h3>
         <div className={`${styles["items-container"]} pr-4 pl-4`}>
           {items.length > 0 &&
-            items.map((item, idx) => (
+            items.map((item) => (
               <IngredientsItem
                 key={item._id}
                 id={item._id}
@@ -50,7 +50,7 @@ const BurgerIngredientsList = memo(({ title, items }) => {
             ))}
         </div>
       </div>
-      {isModalDetail  && (
+      {isModalDetail && (
         <AppModal onClose={handleCloseDetail} title={"Детали ингредиента"}>
           <IngredientDetails />
         </AppModal>
@@ -62,7 +62,7 @@ const BurgerIngredientsList = memo(({ title, items }) => {
 BurgerIngredientsList.propTypes = {
   title: PropTypes.string.isRequired,
   items: PropTypes.arrayOf(itemsPropTypes),
-  // onShowDetail: PropTypes.func.isRequired,
+  id: PropTypes.string.isRequired,
 };
 
 export default BurgerIngredientsList;

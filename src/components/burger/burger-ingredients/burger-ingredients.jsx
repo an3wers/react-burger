@@ -1,83 +1,73 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useCallback, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./burger-ingredients.module.css";
 import BurgerIngredientsList from "./burger-ingredients-list/burger-ingredients-list";
-import AppModal from "../../modal/app-modal";
-import IngredientDetails from "../ingredient-details/ingredient-details";
 import PropTypes from "prop-types";
 import { itemsPropTypes } from "../../../utlils/types/ingredients.type";
+import Tabs from "../tabs/tabs";
 
 const BurgerIngredients = ({ ingredientsItems }) => {
   const [currentTab, setCurrentTab] = useState("buns");
-  const [isModalDetail, setIsModalDetail] = useState(false);
-  const [currentItem, setCurrentItem] = useState(null);
+  const refContainer = useRef(null);
+  const isFirsrtRender = useRef(true);
 
-  const handleShowDetail = useCallback((item) => {
-    setCurrentItem(getFullItem(item));
-    setIsModalDetail(true);
+  const setCurrenTabHandler = (tab) => {
+    setCurrentTab(tab);
+    const target = document.getElementById(tab);
+    target.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    const ingredientsList = document.querySelectorAll(".ingredients-list");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.intersectionRatio > 0) {
+            if (!isFirsrtRender.current) {
+              setCurrentTab(entry.target.id);
+            }
+          }
+        });
+      },
+      {
+        root: refContainer.current,
+        rootMargin: "0px 0px -80% 0px",
+      }
+    );
+
+    ingredientsList.forEach((item) => {
+      observer.observe(item);
+    });
+
+    isFirsrtRender.current = false;
   }, []);
-
-  const handleCloseDetail = () => {
-    setCurrentItem(null);
-    setIsModalDetail(false);
-  };
-
-  const getFullItem = (item) => {
-    return ingredientsItems[item.type].find((el) => el._id === item.id);
-  };
 
   return (
     <section>
       <h1 className="text text_type_main-large mb-5">Соберите бургер</h1>
       <div className={`${styles["tab-group"]} mb-10`}>
-        <Tab
-          value="buns"
-          active={currentTab === "buns"}
-          onClick={setCurrentTab}
-        >
-          Булки
-        </Tab>
-        <Tab
-          value="sauces"
-          active={currentTab === "sauces"}
-          onClick={setCurrentTab}
-        >
-          Соусы
-        </Tab>
-        <Tab
-          value="main"
-          active={currentTab === "main"}
-          onClick={setCurrentTab}
-        >
-          Начинки
-        </Tab>
+        <Tabs currentTab={currentTab} setCurrentTab={setCurrenTabHandler} />
       </div>
-      <section className={`${styles.container}`}>
+      <section ref={refContainer} className={`${styles.container}`}>
         <BurgerIngredientsList
-          onShowDetail={handleShowDetail}
           key={"buns"}
+          id={"buns"}
           title="Булки"
           items={ingredientsItems.bun}
         />
         <BurgerIngredientsList
-          onShowDetail={handleShowDetail}
           key={"sauces"}
+          id={"sauces"}
           title="Соусы"
           items={ingredientsItems.sauce}
         />
         <BurgerIngredientsList
-          onShowDetail={handleShowDetail}
           key={"main"}
+          id={"main"}
           title="Начинки"
           items={ingredientsItems.main}
         />
       </section>
-      {isModalDetail && currentItem && (
-        <AppModal onClose={handleCloseDetail} title={"Детали ингредиента"}>
-          <IngredientDetails ingredient={currentItem} />
-        </AppModal>
-      )}
     </section>
   );
 };

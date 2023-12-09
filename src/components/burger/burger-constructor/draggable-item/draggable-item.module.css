@@ -1,0 +1,10 @@
+.item {
+  position: relative;
+  cursor: grab;
+}
+
+.item__icon {
+  position: absolute;
+  left: 0;
+  top: calc(50% - 12px);
+}

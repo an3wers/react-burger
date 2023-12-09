@@ -13,12 +13,14 @@
   height: calc(100vh - 534px);
 }
 
-.item {
-  position: relative;
+.inner-container {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--offset-base-size) * 4);
+  background-color: inherit;
+  border-radius: var(--common-border-radius);
 }
 
-.item__icon {
-  position: absolute;
-  left: 0;
-  top: calc(50% - 12px)
+.inner-container_hover {
+  background-color: #25252c;
 }

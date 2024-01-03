@@ -5,27 +5,40 @@ import {
   Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./register.module.css";
-import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useUser } from "../../hooks/useUser";
+import { useState } from "react";
 
 function RegisterPage() {
+  const { registerRequest } = useUser();
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState("");
 
-  const registerHandler = (e) => {
+  const registerHandler = async (e) => {
     e.preventDefault();
-    console.log(name, email, password);
-    setName("");
-    setEmail("");
-    setPassword("");
+    try {
+      setError("");
+      setIsSubmitting(true);
+      if (!email || !password || !name) {
+        throw new Error("Пожалуйста, заполните все поля");
+      }
+      await registerRequest({ name, email, password });
+    } catch (error) {
+      setError(error?.message || error.toString());
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
     <main className={"container pt-10 pb-10"}>
       <div className={styles.container}>
-        <h3 className='text text_type_main-medium mb-6'>Регистрация</h3>
+        <h3 className="text text_type_main-medium mb-6">Регистрация</h3>
+        {error && <p className="text text_type_main-default mb-6">{error}</p>}
         <form onSubmit={registerHandler} className={styles.form}>
           <Input
             type={"text"}
@@ -51,18 +64,18 @@ function RegisterPage() {
           />
 
           <Button
-            htmlType='submit'
-            type='primary'
+            htmlType="submit"
+            type="primary"
             disabled={isSubmitting}
-            size='medium'
+            size="medium"
           >
             Зарегистрироваться
           </Button>
         </form>
 
-        <p className='text text_type_main-default text_color_inactive mt-20'>
+        <p className="text text_type_main-default text_color_inactive mt-20">
           Уже зарегистрированы?{" "}
-          <Link to='/login' className={styles.link}>
+          <Link to="/login" className={styles.link}>
             Войти
           </Link>
         </p>

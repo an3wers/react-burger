@@ -3,28 +3,40 @@ import {
   EmailInput,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./login.module.css";
+import { useUser } from "../../hooks/useUser";
+import { useState } from "react";
 
 function LoginPage() {
+  const { loginRequest } = useUser();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState("");
 
-  const loginHandler = (e) => {
+  const loginHandler = async (e) => {
     e.preventDefault();
-
-    console.log(email, password);
-
-    setEmail("");
-    setPassword("");
+    try {
+      setError("");
+      setIsSubmitting(true);
+      if (!email || !password) {
+        throw new Error("Пожалуйста, заполните все поля");
+      }
+     await loginRequest({ email, password });
+    } catch (error) {
+      setError(error?.message || error.toString());
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
     <main className={"container pt-10 pb-10"}>
       <div className={styles.container}>
-        <h3 className='text text_type_main-medium mb-6'>Вход</h3>
+        <h3 className="text text_type_main-medium mb-6">Вход</h3>
+        {error && <p className="text text_type_main-default mb-6">{error}</p>}
         <form onSubmit={loginHandler} className={styles.form}>
           <EmailInput
             onChange={(e) => setEmail(e.target.value)}
@@ -42,25 +54,25 @@ function LoginPage() {
           />
 
           <Button
-            htmlType='submit'
-            type='primary'
+            htmlType="submit"
+            type="primary"
             disabled={isSubmitting}
-            size='medium'
+            size="medium"
           >
             Войти
           </Button>
         </form>
 
-        <p className='text text_type_main-default text_color_inactive mt-20'>
+        <p className="text text_type_main-default text_color_inactive mt-20">
           Вы - новый пользователь?{" "}
-          <Link to='/register' className={styles.link}>
+          <Link to="/register" className={styles.link}>
             Зарегистрироваться
           </Link>
         </p>
 
-        <p className='text text_type_main-default text_color_inactive mt-4'>
+        <p className="text text_type_main-default text_color_inactive mt-4">
           Забыли пароль?{" "}
-          <Link to='/forgot-password' className={styles.link}>
+          <Link to="/forgot-password" className={styles.link}>
             Восстановить пароль
           </Link>
         </p>

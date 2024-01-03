@@ -3,25 +3,52 @@ import {
   Input,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./reset-password.module.css";
+import { useUser } from "../../hooks/useUser";
+import { useNavigate, Navigate } from "react-router-dom";
+import { useState } from "react";
 
 function ResetPasswordPage() {
-  const [password, setPassword] = useState("");
-  const [code, setCode] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { resetPasswordRequest } = useUser();
+  const navigate = useNavigate();
 
-  const resetHandler = (e) => {
+  const [password, setPassword] = useState("");
+  const [token, setToken] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState("");
+
+  const resetHandler = async (e) => {
     e.preventDefault();
+
+    try {
+      setError("");
+      setIsSubmitting(true);
+      if (!password || !token) {
+        throw new Error("Пожалуйста, заполните все поля");
+      }
+      await resetPasswordRequest({ password, token });
+      navigate("/login");
+    } catch (error) {
+      setError(error?.message || error.toString());
+    } finally {
+      setIsSubmitting(false);
+    }
   };
+
+  const isForgotPassword = localStorage.getItem("isForgotPassword");
+
+  if (!isForgotPassword) {
+    return <Navigate to={"/forgot-password"} />;
+  }
 
   return (
     <main className={"container pt-10 pb-10"}>
       <div className={styles.container}>
-        <h3 className='text text_type_main-medium mb-6'>
+        <h3 className="text text_type_main-medium mb-6">
           Восстановление пароля
         </h3>
+        {error && <p className="text text_type_main-default mb-6">{error}</p>}
         <form onSubmit={resetHandler} className={styles.form}>
           <PasswordInput
             onChange={(e) => setPassword(e.target.value)}
@@ -33,25 +60,25 @@ function ResetPasswordPage() {
           <Input
             type={"text"}
             placeholder={"Введите код из письма"}
-            onChange={(e) => setCode(e.target.value)}
-            value={code}
-            name={"code"}
+            onChange={(e) => setToken(e.target.value)}
+            value={token}
+            name={"token"}
             disabled={isSubmitting}
           />
 
           <Button
-            htmlType='submit'
-            type='primary'
+            htmlType="submit"
+            type="primary"
             disabled={isSubmitting}
-            size='medium'
+            size="medium"
           >
             Сохранить
           </Button>
         </form>
 
-        <p className='text text_type_main-default text_color_inactive mt-20'>
+        <p className="text text_type_main-default text_color_inactive mt-20">
           Вспомнили пароль?{" "}
-          <Link to='/login' className={styles.link}>
+          <Link to="/login" className={styles.link}>
             Войти
           </Link>
         </p>

@@ -9,24 +9,32 @@ import { resetOrder, setError } from "../../../../store/order/slice";
 import { resetConstructor } from "../../../../store/constructor/slice";
 import { resetItemsQty } from "../../../../store/ingredients/slice";
 import PropTypes from "prop-types";
+import { useUser } from "../../../../hooks/useUser";
+import { useNavigate } from "react-router-dom";
 
 const BurgerConstructorTotal = ({ total, ingredientsIds }) => {
   const [isModalOrderDetail, setIsModalOrderDetail] = useState(false);
 
   const dispatch = useDispatch();
+  const { user } = useUser();
+  const navigate = useNavigate();
 
   const modalToggle = () => setIsModalOrderDetail(!isModalOrderDetail);
 
   const createOrderHandler = () => {
-    if (!ingredientsIds.length) {
-      dispatch(setError("Пожалуйста, выберите булочки для бургера."));
+    if (!user) {
+      navigate("/login");
     } else {
-      const data = {
-        ingredients: ingredientsIds,
-      };
-      dispatch(createOrder(data));
+      if (!ingredientsIds.length) {
+        dispatch(setError("Пожалуйста, выберите булочки для бургера."));
+      } else {
+        const data = {
+          ingredients: ingredientsIds,
+        };
+        dispatch(createOrder(data));
+      }
+      modalToggle();
     }
-    modalToggle();
   };
 
   const closeOrderDetailHandler = () => {
@@ -63,6 +71,6 @@ const BurgerConstructorTotal = ({ total, ingredientsIds }) => {
 BurgerConstructorTotal.propTypes = {
   total: PropTypes.number.isRequired,
   ingredientsIds: PropTypes.arrayOf(PropTypes.string),
-}
+};
 
 export default BurgerConstructorTotal;

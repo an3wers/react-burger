@@ -6,15 +6,17 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./app-header.module.css";
 import { NavLink } from "react-router-dom";
+import { useUser } from "../../hooks/useUser";
 
 const AppHeader = () => {
+  const { user } = useUser();
   return (
     <header className={`${styles.header} pt-4 pb-4`}>
       <nav className={styles.nav}>
         <div
           className={`${styles["nav__links-group"]} ${styles["nav__links-group_left"]}`}
         >
-          <NavLink to='/'>
+          <NavLink to="/">
             {({ isActive }) => (
               <span
                 className={[
@@ -27,7 +29,7 @@ const AppHeader = () => {
               </span>
             )}
           </NavLink>
-          <NavLink to='/list-orders'>
+          <NavLink to="/list-orders">
             {({ isActive }) => (
               <span
                 className={[
@@ -47,7 +49,7 @@ const AppHeader = () => {
         <div
           className={`${styles["nav__links-group"]} ${styles["nav__links-group_right"]}`}
         >
-          <NavLink to='/profile'>
+          <NavLink to="/profile">
             {({ isActive }) => (
               <span
                 className={[
@@ -56,7 +58,7 @@ const AppHeader = () => {
                 ].join(" ")}
               >
                 <ProfileIcon type={isActive ? "primary" : "secondary"} />
-                Личный кабинет
+                {user ? user.name : "Личный кабинет"}
               </span>
             )}
           </NavLink>

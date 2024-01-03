@@ -1,0 +1,35 @@
+.layout {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  padding: calc(var(--offset-base-size) * 30) calc(var(--offset-base-size) * 6);
+  gap: calc(var(--offset-base-size) * 15);
+}
+
+.nav {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.nav > li {
+  height: 64px;
+  display: flex;
+  align-items: center;
+}
+
+.nav__link {
+  color: var(--text-inactive-color);
+}
+
+.nav__link_active {
+  color: var(--color-base);
+}
+
+.btn {
+  background: none;
+  color: var(--text-inactive-color);
+  outline: none;
+  border: none;
+  cursor: pointer;
+}

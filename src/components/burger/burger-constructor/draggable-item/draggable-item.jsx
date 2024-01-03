@@ -89,7 +89,7 @@ DraggbleItem.propTypes = {
     name: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     image: PropTypes.string.isRequired,
-    typeof: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
   }).isRequired,
   index: PropTypes.number.isRequired,
 }

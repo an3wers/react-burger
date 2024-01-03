@@ -5,7 +5,8 @@ export const createOrder = createAsyncThunk(
   "order/createOrder",
   async (payload, { rejectWithValue }) => {
     try {
-      const response = await sendOrder(payload);
+      const token = localStorage.getItem('accessToken')
+      const response = await sendOrder(payload, token);
       return response;
     } catch (error) {
       return rejectWithValue(error.message);

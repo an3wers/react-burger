@@ -10,7 +10,7 @@
   gap: calc(var(--offset-base-size) * 4);
   overflow-y: auto;
   overflow-x: hidden;
-  height: calc(100vh - 534px);
+  height: calc(100vh - 540px);
 }
 
 .inner-container {

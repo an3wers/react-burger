@@ -2,7 +2,7 @@ import { memo } from "react";
 import IngredientsItem from "../burger-ingredients-item/burger-ingredients-item";
 import styles from "./burger-ingredients-list.module.css";
 import PropTypes from "prop-types";
-import { itemsPropTypes } from "../../../../utlils/types/ingredients.type";
+import { itemsPropTypes } from "../../../../utils/types/ingredients.type";
 import { useNavigate, useLocation } from "react-router-dom";
 
 const BurgerIngredientsList = memo(({ title, items, id }) => {

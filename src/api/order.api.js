@@ -1,4 +1,4 @@
-import checkReponse from "../utlils/api/check-response";
+import checkReponse from "../utils/api/check-response";
 import { baseApi } from "./baseApi";
 import { fetchWithRefresh } from "./fetchWithRefresh";
 

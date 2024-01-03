@@ -4,7 +4,7 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import { useMemo } from "react";
 import { useSelector } from "react-redux";
 import { selectIngredientsState } from "../../store/ingredients/selectors";
-import { mappingForIngredients } from "../../utlils/mappers/mappers";
+import { mappingForIngredients } from "../../utils/mappers/mappers";
 import AppError from "../../components/app-error/app-error";
 import AppLoading from "../../components/app-loading/app-loading";
 import BurgerLayout from "../../components/burger/burger-layout/burger-layout";

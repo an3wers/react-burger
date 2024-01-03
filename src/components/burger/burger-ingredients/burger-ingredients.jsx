@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import styles from "./burger-ingredients.module.css";
 import BurgerIngredientsList from "./burger-ingredients-list/burger-ingredients-list";
 import PropTypes from "prop-types";
-import { itemsPropTypes } from "../../../utlils/types/ingredients.type";
+import { itemsPropTypes } from "../../../utils/types/ingredients.type";
 import Tabs from "../tabs/tabs";
 
 const BurgerIngredients = ({ ingredientsItems }) => {

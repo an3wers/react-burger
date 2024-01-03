@@ -1,13 +1,16 @@
-import checkReponse from "../utlils/api/check-response";
+import checkReponse from "../utils/api/check-response";
 import { baseApi } from "./baseApi";
+import { fetchWithRefresh } from "./fetchWithRefresh";
 
-export const sendOrder = async (data) => {
+export const sendOrder = async (data, token) => {
   const endPoint = "/orders";
-  return await fetch(baseApi + endPoint, {
+
+  return await fetchWithRefresh(baseApi + endPoint, {
+    method: "POST",
     headers: {
       "Content-Type": "application/json",
+      authorization: token,
     },
-    method: "POST",
     body: JSON.stringify(data),
-  }).then(checkReponse);
+  });
 };

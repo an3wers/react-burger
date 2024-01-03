@@ -1,0 +1,17 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--offset-base-size) * 6);
+  width: 480px;
+}
+
+.btn-group {
+  display: flex;
+  justify-content: flex-end;
+}

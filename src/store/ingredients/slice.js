@@ -51,6 +51,7 @@ export const ingridientsSlice = createSlice({
         state.items = action.payload.map((item) => ({ ...item, qty: 0 }));
       })
       .addCase(fetchIngredients.rejected, (state, action) => {
+        state.items = [];
         state.isLoading = false;
         state.error = action.payload;
       });

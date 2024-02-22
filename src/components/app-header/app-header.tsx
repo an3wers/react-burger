@@ -29,7 +29,7 @@ const AppHeader = () => {
               </span>
             )}
           </NavLink>
-          <NavLink to="/list-orders">
+          <NavLink to="/feed">
             {({ isActive }) => (
               <span
                 className={[

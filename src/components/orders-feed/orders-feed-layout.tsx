@@ -1,38 +1,52 @@
 import { useAppSelector } from "../../store/hooks";
-import { selectIngredientsState } from "../../store/ingredients/selectors";
-import styles from "./orders-feed-layout.module.css";
+import { TIngredientMapById } from "../../store/ingredients/slice";
+import { IOrderFeed } from "../../store/types";
 import OrdersFeedPreview from "./orders-feed-preview";
+import { v4 as uuidv4 } from "uuid";
 
 interface IProps {
   isProfile?: boolean;
 }
 
+const ordersMapper = (
+  ordersArr: IOrderFeed[],
+  ingridientsMap: TIngredientMapById
+) => {
+  if (!ordersArr.length) {
+    return [];
+  }
+
+  return ordersArr.map((order) => {
+    const ingridientsArrObj = order.ingredients.map((ingredientId) => {
+      return {
+        id: ingredientId,
+        uuid: uuidv4(),
+        imgPath: ingredientId ? ingridientsMap[ingredientId]?.image_mobile : "",
+        price: ingredientId ? ingridientsMap[ingredientId]?.price : 0,
+      };
+    });
+    return { ...order, ingredients: ingridientsArrObj };
+  });
+};
+
 const OrdersFeedLayout = ({ isProfile = false }: IProps) => {
   const orders = useAppSelector((state) => {
-    return state.ordersFeed.orders;
+    return isProfile
+      ? ordersMapper(state.ordersProfile.orders, state.ingredients.itemsMapById)
+      : ordersMapper(state.ordersFeed.orders, state.ingredients.itemsMapById);
   });
 
-  const { itemsMapById: ingridients } = useAppSelector(selectIngredientsState);
-
-  const getIngridientsPreview = (ids: string[]) => {
-    return ids.map((id) => ({
-      id: ingridients[id]._id,
-      imgPath: ingridients[id].image_mobile,
-    }));
-  };
-
   return (
-    <section className={styles.container}>
+    <>
       {orders.length > 0 &&
         orders.map((order) => (
           <OrdersFeedPreview
             isProfile={isProfile}
             key={order._id}
             order={order}
-            ingridientsPreview={getIngridientsPreview(order.ingredients)}
           />
         ))}
-    </section>
+    </>
   );
 };
 

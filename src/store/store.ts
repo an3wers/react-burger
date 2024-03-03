@@ -12,7 +12,16 @@ import {
   wsMessage as OrdersFeedWsMessage,
   wsOpen as OrdersFeedWsOpen,
 } from "./ordersFeed/actions";
+import {
+  connect as OrdersProfileWsConnect,
+  disconnect as OrdersProfileWsDisconnect,
+  wsClose as OrdersProfileWsClose,
+  wsError as OrdersProfileWsError,
+  wsMessage as OrdersProfileWsMessage,
+  wsOpen as OrdersProfileWsOpen,
+} from "./ordersProfile/actions";
 import { ordersFeedReducer } from "./ordersFeed/reducer";
+import { ordersProfileReducer } from "./ordersProfile/reducer";
 
 const reducers = combineReducers({
   ingredients: ingredientsReducer,
@@ -20,6 +29,7 @@ const reducers = combineReducers({
   order: orderReducer,
   user: userReducer,
   ordersFeed: ordersFeedReducer,
+  ordersProfile: ordersProfileReducer,
 });
 
 const feedMiddleware = socketMiddleware({
@@ -31,10 +41,22 @@ const feedMiddleware = socketMiddleware({
   wsDisconnect: OrdersFeedWsDisconnect,
 });
 
+const profileMiddleware = socketMiddleware(
+  {
+    onClose: OrdersProfileWsClose,
+    onError: OrdersProfileWsError,
+    onMessage: OrdersProfileWsMessage,
+    onOpen: OrdersProfileWsOpen,
+    wsConnect: OrdersProfileWsConnect,
+    wsDisconnect: OrdersProfileWsDisconnect,
+  },
+  true
+);
+
 export const store = configureStore({
   reducer: reducers,
   middleware: (getDefaultMiddleware) => {
-    return getDefaultMiddleware().concat(feedMiddleware);
+    return getDefaultMiddleware().concat([feedMiddleware, profileMiddleware]);
   },
 });
 

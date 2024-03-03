@@ -18,6 +18,7 @@ import ProfileLayout from "../profile-layout/profile-layout";
 import ProfileOrdersPage from "../../pages/profile-orders/profile-orders";
 import { useAppDispatch } from "../../store/hooks";
 import FeedPage from "../../pages/feed/feed";
+import OrderInfo from "../orders-feed/order-info";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -34,6 +35,10 @@ function App() {
 
   const handleCloseDetail = () => {
     navigate("/");
+  };
+
+  const handleCloseOrderInfo = (backPath: string) => {
+    navigate(`/${backPath}`);
   };
 
   return (
@@ -67,8 +72,13 @@ function App() {
             element={<OnlyAuth component={<ProfileOrdersPage />} />}
           />
         </Route>
+        <Route
+          path='/profile/orders/:number'
+          element={<OnlyAuth component={<OrderInfo />} />}
+        />
         <Route path='/ingredients/:id' element={<IngredientDetails />} />
         <Route path='/feed' element={<FeedPage />} />
+        <Route path='/feed/:number' element={<OrderInfo />} />
         <Route path='*' element={<NotFoundPage />}></Route>
       </Routes>
       {background && (
@@ -82,6 +92,28 @@ function App() {
               >
                 <IngredientDetails />
               </AppModal>
+            }
+          />
+          <Route
+            path='/feed/:number'
+            element={
+              <AppModal onClose={() => handleCloseOrderInfo("feed")}>
+                <OrderInfo />
+              </AppModal>
+            }
+          />
+          <Route
+            path='/profile/orders/:number'
+            element={
+              <OnlyAuth
+                component={
+                  <AppModal
+                    onClose={() => handleCloseOrderInfo("profile/orders")}
+                  >
+                    <OrderInfo />
+                  </AppModal>
+                }
+              />
             }
           />
         </Routes>

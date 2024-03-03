@@ -6,9 +6,11 @@ export interface IIngredientItems extends IIngredient {
   qty: number;
 }
 
+export type TIngredientMapById = Record<string, Omit<IIngredientItems, 'qty'>>
+
 interface IState {
   items: IIngredientItems[];
-  itemsMapById: Record<string, Omit<IIngredientItems, 'qty'>>
+  itemsMapById: TIngredientMapById
   isLoading: boolean;
   error: string | null;
 }

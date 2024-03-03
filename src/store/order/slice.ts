@@ -1,15 +1,17 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { createOrder } from "./api";
-import { IOrder } from "../../utils/types/order.type";
+import { createOrder, getOrderByNumber } from "./api";
+import { IOrder, IOrderInfo } from "../../utils/types/order.type";
 
 interface IState {
   orderDetails: IOrder | null;
+  currentOrder: IOrderInfo | null
   isLoading: boolean;
   error: string | null;
 }
 
 const initialState: IState = {
   orderDetails: null,
+  currentOrder: null,
   isLoading: false,
   error: null,
 };
@@ -43,7 +45,10 @@ export const orderSlice = createSlice({
         if (action.payload) {
           state.error = action.payload;
         }
-      });
+      })
+      .addCase(getOrderByNumber.fulfilled, (state, action) => {
+        state.currentOrder = action.payload
+      })
   },
 });
 

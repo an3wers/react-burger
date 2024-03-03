@@ -1,6 +1,9 @@
 import { useState } from "react";
 import styles from "./burger-constructor-total.module.css";
-import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
+import {
+  Button,
+  CurrencyIcon,
+} from "@ya.praktikum/react-developer-burger-ui-components";
 import AppModal from "../../../modal/app-modal";
 import OrderDetails from "../../order-details/order-details";
 import { createOrder } from "../../../../store/order/api";
@@ -53,7 +56,12 @@ const BurgerConstructorTotal = ({ total, ingredientsIds }: IProps) => {
   return (
     <>
       <div className={`${styles.container}  mt-8 pr-8`}>
-        <span className='text text_type_digits-medium mr-10'>{total}</span>
+        <div className='text text_type_digits-medium mr-10'>
+          {total}
+          <span className='ml-2'>
+            <CurrencyIcon type='primary' />
+          </span>
+        </div>
         <Button
           onClick={createOrderHandler}
           htmlType='button'

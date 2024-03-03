@@ -73,6 +73,9 @@ export const socketMiddleware = (
           ) {
             refreshToken()
               .then((refreshData) => {
+                localStorage.setItem("refreshToken", refreshData.refreshToken);
+                localStorage.setItem("accessToken", refreshData.accessToken);
+
                 const wssUrl = new URL(url);
                 wssUrl.searchParams.set(
                   "token",

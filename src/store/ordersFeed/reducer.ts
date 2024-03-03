@@ -7,6 +7,7 @@ export interface IOrdersFeedStore {
   total: number;
   totalToday: number;
   connectionError: string;
+  isLoaded: boolean;
 }
 
 const initialState: IOrdersFeedStore = {
@@ -14,6 +15,7 @@ const initialState: IOrdersFeedStore = {
   total: 0,
   totalToday: 0,
   connectionError: "",
+  isLoaded: false,
 };
 
 export const ordersFeedReducer = createReducer(initialState, (builder) => {
@@ -22,15 +24,17 @@ export const ordersFeedReducer = createReducer(initialState, (builder) => {
       state.orders = action.payload.orders;
       state.total = action.payload.total;
       state.totalToday = action.payload.totalToday;
+      state.connectionError = ''
+      state.isLoaded = true
     })
     .addCase(wsError, (state, action) => {
       console.log("ORDERS FEED WS ERROR: ", action.payload);
       state.connectionError = action.payload;
     })
-    .addCase(wsOpen, () => {
+    .addCase(wsOpen, (state) => {
       console.log("ORDERS FEED WS OPEN");
     })
-    .addCase(wsClose, () => {
+    .addCase(wsClose, (state) => {
       console.log("ORDERS FEED WS CLOSE");
     });
 });

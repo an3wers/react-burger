@@ -1,0 +1,28 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 3.75rem;
+}
+
+.orders {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.orders-list {
+  list-style: none;
+  padding: 0;
+}
+
+.orders_completed {
+  color: var(--colors-interface-success);
+}
+
+.total > p {
+  text-shadow: rgba(51, 51, 255, 0.5) 0px 0px 32px;
+}
+
+.today-total > p {
+  text-shadow: rgba(51, 51, 255, 0.5) 0px 0px 32px;
+}

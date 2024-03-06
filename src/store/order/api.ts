@@ -1,8 +1,8 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { sendOrder } from "../../api/order.api";
+import { getOrder, sendOrder } from "../../api/order.api";
 import { ICreateOrderRequestData } from "../../api/types";
 import { IThunkConfig } from "../types";
-import { IOrder } from "../../utils/types/order.type";
+import { IOrder, IOrderInfo } from "../../utils/types/order.type";
 
 export const createOrder = createAsyncThunk<
   IOrder,
@@ -17,6 +17,19 @@ export const createOrder = createAsyncThunk<
     } else {
       throw new Error("Токен не найден");
     }
+  } catch (error) {
+    return rejectWithValue((error as Error).message);
+  }
+});
+
+export const getOrderByNumber = createAsyncThunk<
+  IOrderInfo,
+  number,
+  IThunkConfig
+>("order/getOrderByNumber", async (payload, { rejectWithValue }) => {
+  try {
+    const response = await getOrder(payload);
+    return response.orders[0];
   } catch (error) {
     return rejectWithValue((error as Error).message);
   }

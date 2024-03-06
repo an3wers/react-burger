@@ -1,0 +1,13 @@
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: calc(var(--offset-base-size)  * 10);
+}
+
+.orders-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  overflow-y: auto;
+  max-height: calc(100vh - 230px);
+}

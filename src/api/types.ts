@@ -1,5 +1,5 @@
 import { IIngredient } from "../utils/types/ingredients.type";
-import { IOrder } from "../utils/types/order.type";
+import { IOrder, IOrderInfo } from "../utils/types/order.type";
 import { IUser } from "../utils/types/user.type";
 
 export type HTTPMethods = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
@@ -81,4 +81,9 @@ export interface IOrderResponse {
   success: boolean;
   name: string;
   order: IOrder;
+}
+
+export interface IOrderInfoResponse {
+  success: boolean;
+  orders: IOrderInfo[];
 }

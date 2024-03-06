@@ -6,8 +6,11 @@ export interface IIngredientItems extends IIngredient {
   qty: number;
 }
 
+export type TIngredientMapById = Record<string, Omit<IIngredientItems, 'qty'>>
+
 interface IState {
   items: IIngredientItems[];
+  itemsMapById: TIngredientMapById
   isLoading: boolean;
   error: string | null;
 }
@@ -20,6 +23,7 @@ interface IUpdateItemQtyPayload {
 
 const initialState: IState = {
   items: [],
+  itemsMapById: {},
   isLoading: false,
   error: null,
 };
@@ -65,6 +69,9 @@ export const ingridientsSlice = createSlice({
       .addCase(fetchIngredients.fulfilled, (state, action) => {
         state.isLoading = false;
         state.items = action.payload.map((item) => ({ ...item, qty: 0 }));
+        action.payload.forEach(item => {
+          state.itemsMapById[item._id] = item
+        })
       })
       .addCase(fetchIngredients.rejected, (state, action) => {
         state.items = [];

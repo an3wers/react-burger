@@ -15,8 +15,10 @@ export const createUser = createAsyncThunk<
 >("user/createUser", async (userData, { rejectWithValue }) => {
   try {
     const res = await userApi.createUser(userData);
+
     localStorage.setItem("accessToken", res.accessToken);
     localStorage.setItem("refreshToken", res.refreshToken);
+
     return res.user;
   } catch (error) {
     return rejectWithValue((error as Error).message);

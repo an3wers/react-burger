@@ -1,10 +1,10 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { createUser, loginUser, logoutUser, updateUser } from "./api";
 import { IUser } from "../../utils/types/user.type";
 
 interface IState {
-  user: IUser | null
-  isAuthChecked: boolean
+  user: IUser | null;
+  isAuthChecked: boolean;
 }
 
 const initialState: IState = {
@@ -16,10 +16,10 @@ export const userSlise = createSlice({
   name: "user",
   initialState,
   reducers: {
-    setAuthChecked: (state, action) => {
+    setAuthChecked: (state, action: PayloadAction<boolean>) => {
       state.isAuthChecked = action.payload;
     },
-    setUser: (state, action) => {
+    setUser: (state, action: PayloadAction<IUser | null>) => {
       state.user = action.payload;
     },
   },
@@ -37,11 +37,10 @@ export const userSlise = createSlice({
         state.user = null;
       })
       .addCase(updateUser.fulfilled, (state, action) => {
-        state.user = action.payload
-      })
+        state.user = action.payload;
+      });
   },
 });
 
 export const { setUser, setAuthChecked } = userSlise.actions;
 export default userSlise.reducer;
-

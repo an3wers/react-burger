@@ -11,8 +11,8 @@ import { useUser } from "../../hooks/useUser";
 const AppHeader = () => {
   const { user } = useUser();
   return (
-    <header className={`${styles.header} pt-4 pb-4`}>
-      <nav className={styles.nav}>
+    <header data-testid="header" className={`${styles.header} pt-4 pb-4`}>
+      <nav data-testid="nav" className={styles.nav}>
         <div
           className={`${styles["nav__links-group"]} ${styles["nav__links-group_left"]}`}
         >
@@ -43,10 +43,11 @@ const AppHeader = () => {
             )}
           </NavLink>
         </div>
-        <div className={styles.nav__logo}>
+        <div data-testid="logo" className={styles.nav__logo}>
           <Logo />
         </div>
         <div
+        data-testid="user"
           className={`${styles["nav__links-group"]} ${styles["nav__links-group_right"]}`}
         >
           <NavLink to="/profile">

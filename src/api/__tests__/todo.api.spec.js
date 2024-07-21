@@ -59,12 +59,9 @@ describe("Todo", () => {
     expect(fetch).toHaveBeenCalledTimes(1);
   });
 
-  // TODO: test throw error
-  it.skip("should throw an error if fetch response is not ok", () => {
+  it("should throw an error if fetch response is not ok", async () => {
     fetch.mockResolvedValueOnce({ ok: false });
-
     const fnToThrow = async () => await createTodoOnServer("some title");
-
-    expect(fnToThrow).toThrow("Could not create todo");
+    await expect(fnToThrow).rejects.toThrow("Could not create todo");
   });
 });
